@@ -24,7 +24,7 @@ namespace FrontEnd.UseCases
             string apiURL = "https://localhost:7096/Usuario/adicionar-usuario";
             using HttpClient cliente = new HttpClient();
             string jsonRequest = JsonSerializer.Serialize(usuario);
-            HttpResponseMessage response = await cliente.PostAsJsonAsync(apiURL, jsonRequest);
+            HttpResponseMessage response = await cliente.PostAsJsonAsync(apiURL, jsonRequest);            
         }
     }
 }
