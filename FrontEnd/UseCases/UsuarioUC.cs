@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
+﻿using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace FrontEnd.UseCases
+namespace FrontEnd.UseCases;
+
+public class UsuarioUC
 {
-    public class UsuarioUC
+    private readonly HttpClient _httpClient;
+    public UsuarioUC(HttpClient httpClient)
     {
-        public async void ListarUsuarios()
-        {
-            string apiURL = "https://localhost:7096/Usuario/listar-usuario";
+        _httpClient = httpClient;
+    }
+    public List<Usuario> ObterProdutosAsync()
+    {
+        return _httpClient.GetFromJsonAsync<List<Usuario>>("Usuario/listar-usuario").Result;
+    }
 
-            using HttpClient cliente = new HttpClient();
-            HttpResponseMessage response = await cliente.GetAsync(apiURL);
-            string resposta = await response.Content.ReadAsStringAsync();
-            List<Usuario> usu = JsonSerializer.Deserialize<List<Usuario>>(resposta);
-        }
-        public async void CadastrarUsuario(Usuario usuario)
-        {
-            string apiURL = "https://localhost:7096/Usuario/adicionar-usuario";
-            using HttpClient cliente = new HttpClient();
-            string jsonRequest = JsonSerializer.Serialize(usuario);
-            HttpResponseMessage response = await cliente.PostAsJsonAsync(apiURL, jsonRequest);            
-        }
+    public void CriarProdutoAsync(Usuario usuario)
+    {
+        var response = _httpClient.PostAsJsonAsync("Usuario/adicionar-usuario", usuario).Result;
+    }
+
+    public void AtualizarProdutoAsync(Usuario usuario)
+    {
+        var response = _httpClient.PutAsJsonAsync($"Usuario/editar-usuario", usuario).Result;
+    }
+
+    public void DeletarProdutoAsync(int id)
+    {
+        var response = _httpClient.DeleteAsync($"Usuario/deletar-usuario/?id={id}").Result;
     }
 }
