@@ -9,9 +9,9 @@ namespace FrontEnd;
 public class Sistema
 {
     private readonly UsuarioUC _usuarioUC;
-    public Sistema()
+    public Sistema(HttpClient cliente)
     {
-        _usuarioUC = new UsuarioUC();
+        _usuarioUC = new UsuarioUC(cliente);
     }
     public void IniciarSistema()
     {
@@ -19,7 +19,7 @@ public class Sistema
         if(resposta == 2)
         {
             Usuario usuario = CriarUsuario();
-            _usuarioUC.CadastrarUsuario(usuario);
+            _usuarioUC.CriarProdutoAsync(usuario);
         }
     }
     public int ExibirLogin()
