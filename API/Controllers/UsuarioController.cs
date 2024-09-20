@@ -20,8 +20,8 @@ public class UsuarioController : ControllerBase
     [HttpPost("adicionar-usuario")]
     public void AdicionarAluno(Usuario usuarioDTO)
     {
-        Usuario usuario = _mapper.Map<Usuario>(usuarioDTO);
-        _service.Adicionar(usuario);
+        //Usuario usuario = _mapper.Map<Usuario>(usuarioDTO);
+        _service.Adicionar(usuarioDTO);
     }
     [HttpGet("listar-usuario")]
     public List<Usuario> ListarAluno()
