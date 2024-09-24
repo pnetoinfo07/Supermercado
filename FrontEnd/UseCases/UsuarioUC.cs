@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core._03_Entidades.DTO.Usuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
@@ -22,6 +23,12 @@ namespace FrontEnd.UseCases
         public void CadastrarUsuario(Usuario usuario)
         {
             HttpResponseMessage response = _client.PostAsJsonAsync("Usuario/adicionar-usuario", usuario).Result;
+        }
+        public Usuario FazerLogin(UsuarioLoginDTO usuLogin)
+        {
+            HttpResponseMessage response = _client.PostAsJsonAsync("Usuario/fazer-login", usuLogin).Result;
+            Usuario usuario = response.Content.ReadFromJsonAsync<Usuario>().Result;
+            return usuario;
         }
     }
 }

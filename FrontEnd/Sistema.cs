@@ -1,4 +1,5 @@
-﻿using FrontEnd.UseCases;
+﻿using Core._03_Entidades.DTO.Usuario;
+using FrontEnd.UseCases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace FrontEnd;
 public class Sistema
 {
+    private static Usuario UsuarioLogado { get; set; }
     private readonly UsuarioUC _usuarioUC;
     public Sistema(HttpClient cliente)
     {
@@ -19,7 +21,11 @@ public class Sistema
         while (resposta != 0)
         {
             resposta = ExibirLogin();
-            if (resposta == 2)
+            if(resposta == 1)
+            {
+                FazerLogin();
+            }
+            else if (resposta == 2)
             {
                 Usuario usuario = CriarUsuario();
                 _usuarioUC.CadastrarUsuario(usuario);
@@ -55,5 +61,24 @@ public class Sistema
         Console.WriteLine("Digite seu email: ");
         usuario.Email = Console.ReadLine();
         return usuario;
+    }
+    public void FazerLogin()
+    {
+        Console.WriteLine("Digite seu username: ");
+        string username = Console.ReadLine();
+        Console.WriteLine("Digite sua senha: ");
+        string senha = Console.ReadLine();
+        UsuarioLoginDTO usuDTO = new UsuarioLoginDTO
+        {
+            Username = username,
+            Senha = senha
+        };
+        Usuario usuario = _usuarioUC.FazerLogin(usuDTO);
+        if (usuario ==  null)
+        {
+            Console.WriteLine("Usuário ou senha inválidos!!!");
+        }
+
+        UsuarioLogado = usuario;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core._03_Entidades.DTO.Usuario;
 using Core.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using TrabalhoFinal._01_Services;
@@ -20,8 +21,13 @@ public class UsuarioController : ControllerBase
     [HttpPost("adicionar-usuario")]
     public void AdicionarAluno(Usuario usuarioDTO)
     {
-        //Usuario usuario = _mapper.Map<Usuario>(usuarioDTO);
         _service.Adicionar(usuarioDTO);
+    }
+    [HttpPost("fazer-login")]
+    public Usuario FazerLogin(UsuarioLoginDTO usuarioLogin)
+    {
+        Usuario usuario = _service.FazerLogin(usuarioLogin);
+        return usuario;
     }
     [HttpGet("listar-usuario")]
     public List<Usuario> ListarAluno()
