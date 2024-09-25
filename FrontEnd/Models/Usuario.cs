@@ -16,7 +16,7 @@ namespace FrontEnd
 
         public override string ToString()
         {
-            return $"Id: {Id} - Nome: {Nome} - Email: {Email}";
+            return $"Id: {Id} - Nome: {Nome} - Email: {Email} - Senha: {Senha}";
         }
     }
 }
