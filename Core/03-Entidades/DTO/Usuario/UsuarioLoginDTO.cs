@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core._03_Entidades.DTO.Usuario
+namespace Core._03_Entidades.DTO.Usuarios
 {
     public class UsuarioLoginDTO
     {

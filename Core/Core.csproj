@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="03-Entidades\DTO\Carrinho\" />
     <Folder Include="03-Entidades\DTO\Usuario\" />
     <Folder Include="03-Entidades\DTO\Produto\" />
   </ItemGroup>

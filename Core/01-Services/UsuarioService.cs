@@ -1,4 +1,4 @@
-﻿using Core._03_Entidades.DTO.Usuario;
+﻿using Core._03_Entidades.DTO.Usuarios;
 using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 

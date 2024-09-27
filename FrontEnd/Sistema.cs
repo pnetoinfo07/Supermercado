@@ -1,11 +1,4 @@
-﻿using Core._03_Entidades.DTO.Usuario;
-using Core.Entidades;
-using FrontEnd.UseCases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FrontEnd.UseCases;
 
 namespace FrontEnd;
 public class Sistema
@@ -13,10 +6,12 @@ public class Sistema
     private static Usuario UsuarioLogado { get; set; }
     private readonly UsuarioUC _usuarioUC;
     private readonly ProdutoUC _produtoUC;
+    private readonly CarrinhoUC _carrinhoUC;
     public Sistema(HttpClient cliente)
     {
         _usuarioUC = new UsuarioUC(cliente);
         _produtoUC = new ProdutoUC(cliente);
+        _carrinhoUC = new CarrinhoUC(cliente);
     }
     public void IniciarSistema()
     {
@@ -110,17 +105,49 @@ public class Sistema
 
         if (resposta == 1)
         {
-            List<Produto> produtos = _produtoUC.ListarProduto();
-            foreach (Produto u in produtos)
-            {
-                Console.WriteLine(u.ToString());
-            }
+            ListarProdutos();
         }
         else if (resposta == 2)
         {
             Produto produto = CriarProduto();
             _produtoUC.CadastrarProduto(produto);
             Console.WriteLine("Usuário cadastrado com sucesso");
+        }
+        else if (resposta == 3)
+        {
+            int opcao =1;
+            while (opcao == 1)
+            {
+                //Listar Produto
+                ListarProdutos();
+                //Escolher Produto
+                Console.WriteLine("Digite os produtos que deseja comprar:");
+                int produtoId = int.Parse(Console.ReadLine());
+                Carrinho c = new Carrinho();
+                c.ProdutoId = produtoId;
+                c.UsuarioId = UsuarioLogado.Id;
+                _carrinhoUC.CadastrarCarrinho(c);
+
+                Console.WriteLine("Escolha a opção: " +
+                    "\n 1- Escolher mais produtos" +
+                    "\n 2- Finalizar compra");
+                opcao = int.Parse(Console.ReadLine());
+            }
+            List<ReadCarrinhoDTO> carrinhosDTO = _carrinhoUC.ListarCarrinhoUsuarioLogado(UsuarioLogado.Id);
+            foreach (ReadCarrinhoDTO car in carrinhosDTO)
+            {
+                Console.WriteLine(car.ToString());
+            }
+            
+        }
+    }
+
+    private void ListarProdutos()
+    {
+        List<Produto> produtos = _produtoUC.ListarProduto();
+        foreach (Produto u in produtos)
+        {
+            Console.WriteLine(u.ToString());
         }
     }
 }

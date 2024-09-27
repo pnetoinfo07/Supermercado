@@ -1,4 +1,5 @@
-﻿namespace Core.Entidades;
+﻿
+namespace FrontEnd;
 
 public class Produto
 {

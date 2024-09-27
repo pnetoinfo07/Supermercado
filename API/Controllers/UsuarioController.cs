@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core._03_Entidades.DTO.Usuario;
+using Core._03_Entidades.DTO.Usuarios;
 using Core.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using TrabalhoFinal._01_Services;

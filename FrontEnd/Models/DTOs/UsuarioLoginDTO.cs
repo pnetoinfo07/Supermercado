@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core._03_Entidades.DTO.Usuario
+
+namespace FrontEnd
 {
     public class UsuarioLoginDTO
     {
