@@ -7,11 +7,14 @@ public class Sistema
     private readonly UsuarioUC _usuarioUC;
     private readonly ProdutoUC _produtoUC;
     private readonly CarrinhoUC _carrinhoUC;
+    private readonly EnderecoUC _enderecoUC;
+    private readonly EnderecoUC teste;
     public Sistema(HttpClient cliente)
     {
         _usuarioUC = new UsuarioUC(cliente);
         _produtoUC = new ProdutoUC(cliente);
         _carrinhoUC = new CarrinhoUC(cliente);
+        _enderecoUC = new EnderecoUC(cliente);
     }
     public void IniciarSistema()
     {
@@ -77,6 +80,18 @@ public class Sistema
         usuario.Preco = double.Parse(Console.ReadLine());
         return usuario;
     }
+    public Endereco CriarEndereco()
+    {
+        Endereco endereco = new Endereco();
+        Console.WriteLine("Digite sua rua: ");
+        endereco.Rua = Console.ReadLine();
+        Console.WriteLine("Digite seu bairro: ");
+        endereco.Bairro = Console.ReadLine();
+        Console.WriteLine("Digite seu numero: ");
+        endereco.Numero = int.Parse(Console.ReadLine());
+        endereco.UsuarioId = UsuarioLogado.Id;
+        return endereco;
+    }
     public void FazerLogin()
     {
         Console.WriteLine("Digite seu username: ");
@@ -115,7 +130,7 @@ public class Sistema
         }
         else if (resposta == 3)
         {
-            int opcao =1;
+            int opcao = 1;
             while (opcao == 1)
             {
                 //Listar Produto
@@ -138,7 +153,40 @@ public class Sistema
             {
                 Console.WriteLine(car.ToString());
             }
-            
+            RealizarEntrega();
+
+        }
+    }
+
+    private void RealizarEntrega()
+    {
+        int idEndereco = 0;
+        Console.WriteLine("Escolha uma opção: \n 1- Retirar na loja \n 2- Entregar a domicilio");
+        int alternativa = int.Parse(Console.ReadLine());
+        if (alternativa == 1)
+        {
+            Console.WriteLine("Retire a sua compra na loja em 7 dias.");
+        }
+        else if (alternativa == 2)
+        {
+            Console.WriteLine("Escolha as opção: \n 1- Listar Enderecos cadastrados \n 2 - Cadastrar endereço");
+            int opcao = int.Parse(Console.ReadLine());
+            if(opcao == 1)
+            {
+                List<Endereco> enderecos = _enderecoUC.ListarEnderecosDoUsuario(UsuarioLogado.Id);
+                foreach (Endereco end in enderecos)
+                {
+                    Console.WriteLine(end.ToString());
+                }
+                Console.WriteLine("Digite qual endereco deseja entregar");
+                idEndereco = int.Parse(Console.ReadLine());
+            }
+            else
+            {
+                Endereco endereco = CriarEndereco();
+                _enderecoUC.CadastrarEndereco(endereco);
+                idEndereco = endereco.Id;
+            }
         }
     }
 
