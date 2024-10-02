@@ -10,6 +10,17 @@ builder.Services.AddSwaggerGen();
 InicializadorBd.Inicializar();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTudo",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -17,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("PermitirTudo");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

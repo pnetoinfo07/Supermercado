@@ -18,7 +18,7 @@ public class EnderecoController : ControllerBase
         _mapper = mapper;
     }
     [HttpPost("adicionar-endereco")]
-    public Usuario AdicionarAluno(Endereco enderecoDTO)
+    public Endereco AdicionarAluno(Endereco enderecoDTO)
     {
         Endereco endereco = _mapper.Map<Endereco>(enderecoDTO);
         _service.Adicionar(endereco);

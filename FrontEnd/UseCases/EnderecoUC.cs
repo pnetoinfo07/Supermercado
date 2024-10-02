@@ -17,7 +17,7 @@ public class EnderecoUC
     {
         HttpResponseMessage response = _client.PostAsJsonAsync("Endereco/adicionar-endereco", endereco).Result;
 
-        Endereco enderecoCadastrado = response.Content.ReadFromJsonAsync<Usuario>().Result;
+        Endereco enderecoCadastrado = response.Content.ReadFromJsonAsync<Endereco>().Result;
         return enderecoCadastrado;
     }
 }

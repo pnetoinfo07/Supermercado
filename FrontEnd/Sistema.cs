@@ -184,7 +184,7 @@ public class Sistema
             else
             {
                 Endereco endereco = CriarEndereco();
-                _enderecoUC.CadastrarEndereco(endereco);
+                endereco = _enderecoUC.CadastrarEndereco(endereco);
                 idEndereco = endereco.Id;
             }
         }
