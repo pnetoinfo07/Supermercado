@@ -1,4 +1,5 @@
 ﻿using Core.Entidades;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using System.Data.SQLite;
 
@@ -36,5 +37,12 @@ public class ProdutoRepository
     {
         using var connection = new SQLiteConnection(ConnectionString);
         return connection.Get<Produto>(id);
+    }
+    public List<Produto> ListarProdutoDoUsuario(int usuarioId)
+    {
+        using var connection = new SQLiteConnection(ConnectionString);
+        List<Produto> list = connection.Query<Produto>($"SELECT Id, Nome, Preco FROM Produtos WHERE UsuarioId = {usuarioId}").ToList();
+        
+        return list;
     }
 }

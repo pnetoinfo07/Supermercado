@@ -8,13 +8,14 @@ public class Sistema
     private readonly ProdutoUC _produtoUC;
     private readonly CarrinhoUC _carrinhoUC;
     private readonly EnderecoUC _enderecoUC;
-    private readonly EnderecoUC teste;
+    private readonly VendaUC _vendaUC;
     public Sistema(HttpClient cliente)
     {
         _usuarioUC = new UsuarioUC(cliente);
         _produtoUC = new ProdutoUC(cliente);
         _carrinhoUC = new CarrinhoUC(cliente);
         _enderecoUC = new EnderecoUC(cliente);
+        _vendaUC = new VendaUC(cliente);
     }
     public void IniciarSistema()
     {
@@ -187,9 +188,44 @@ public class Sistema
                 endereco = _enderecoUC.CadastrarEndereco(endereco);
                 idEndereco = endereco.Id;
             }
+            FinalizarVenda(idEndereco);
         }
     }
 
+    private void FinalizarVenda(int idEndereco)
+    {
+        Venda v = CriarVenda(idEndereco);
+        v = _vendaUC.CadastrarVenda(v);
+        ReadVendaReciboDTO recibo = _vendaUC.BuscarVendaPorId(v.Id);
+        Console.WriteLine(recibo.ToString());
+    }
+
+    private Venda CriarVenda(int idEndereco)
+    {
+        Venda v = new Venda();
+
+        Console.WriteLine("Digite a forma de pagamento:" +
+            "\n 1- PIX" +
+            "\n 2- Debito" +
+            "\n 3- Crédito");
+
+        int opcaoSelecionada = int.Parse(Console.ReadLine());
+        v.MetodoPagamento = v.GetMetodoPagamentoById(opcaoSelecionada);
+        v.EnderecoId = idEndereco;
+        v.ValorFinal = SomaValores();
+
+        return v;
+    }
+    public double SomaValores()
+    {
+        double valor = 0;
+        List<ReadCarrinhoDTO> carrinhosDTO = _carrinhoUC.ListarCarrinhoUsuarioLogado(UsuarioLogado.Id);
+        foreach (ReadCarrinhoDTO car in carrinhosDTO)
+        {
+            valor += car.Produto.Preco;
+        }
+        return valor;
+    }
     private void ListarProdutos()
     {
         List<Produto> produtos = _produtoUC.ListarProduto();

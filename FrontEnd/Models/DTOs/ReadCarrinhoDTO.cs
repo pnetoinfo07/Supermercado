@@ -11,6 +11,9 @@ namespace FrontEnd
         {
             return $"Usuario {Usuario.Nome} - Produto : {Produto.Nome} - Preço: {Produto.Preco}";
         }
-
+        public string ToStringProduto()
+        {
+            return $"Produto : {Produto.Nome} - Preço: {Produto.Preco}";
+        }
     }
 }

@@ -12,11 +12,13 @@ public class CarrinhoRepository
     private readonly string ConnectionString;
     private readonly ProdutoRepository _repositoryProduto;
     private readonly UsuarioRepository _repositoryUsuario;
+    private readonly EnderecoRepository _repositoryEndereco;
     public CarrinhoRepository(string connectioString)
     {
         ConnectionString = connectioString;
         _repositoryProduto = new ProdutoRepository(connectioString);
         _repositoryUsuario = new UsuarioRepository(connectioString);
+        _repositoryEndereco = new EnderecoRepository(connectioString);
     }
     public void Adicionar(Carrinho carrinho)
     {
