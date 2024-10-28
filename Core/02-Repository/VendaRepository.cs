@@ -18,7 +18,7 @@ public class VendaRepository : IVendaRepository
         ConnectionString = connectioString;
         _repositoryCarrinho = new CarrinhoRepository(connectioString);
         _repositoryUsuario = new UsuarioRepository(connectioString);
-        _repositoryEndereco = new EnderecoRepository(connectioString);
+        _repositoryEndereco = new EnderecoRepository (connectioString);
     }
     public void Adicionar(Venda venda)
     {

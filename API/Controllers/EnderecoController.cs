@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core._01_Services.Interfaces;
 using Core.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using TrabalhoFinal._01_Services;
@@ -9,7 +10,7 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class EnderecoController : ControllerBase
 {
-    private readonly EnderecoService _service;
+    private readonly IEnderecoService _service;
     private readonly IMapper _mapper;
     public EnderecoController(IConfiguration config, IMapper mapper)
     {

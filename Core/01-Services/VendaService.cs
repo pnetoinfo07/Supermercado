@@ -1,11 +1,12 @@
-﻿using Core._02_Repository.Interfaces;
+﻿using Core._01_Services.Interfaces;
+using Core._02_Repository.Interfaces;
 using Core._03_Entidades;
 using Core._03_Entidades.DTO.Venda;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
 
-public class VendaService
+public class VendaService : IVendaService
 {
     public IVendaRepository repository { get; set; }
     public VendaService(string _config)

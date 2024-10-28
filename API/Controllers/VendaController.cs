@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core._01_Services.Interfaces;
 using Core._03_Entidades;
 using Core._03_Entidades.DTO.Venda;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class VendaController : ControllerBase
 {
-    private readonly VendaService _service;
+    private readonly IVendaService _service;
     private readonly IMapper _mapper;
     public VendaController(IConfiguration config, IMapper mapper)
     {
