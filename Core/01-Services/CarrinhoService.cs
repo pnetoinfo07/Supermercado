@@ -1,4 +1,5 @@
-﻿using Core._03_Entidades.DTO.Carrinhos;
+﻿using Core._02_Repository.Interfaces;
+using Core._03_Entidades.DTO.Carrinhos;
 using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 
@@ -6,7 +7,7 @@ namespace TrabalhoFinal._01_Services;
 
 public class CarrinhoService
 {
-    public CarrinhoRepository repository { get; set; }
+    public ICarrinhoRepository repository { get; set; }
     public CarrinhoService(string _config)
     {
         repository = new CarrinhoRepository(_config);

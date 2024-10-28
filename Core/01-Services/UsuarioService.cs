@@ -1,4 +1,5 @@
-﻿using Core._03_Entidades.DTO.Usuarios;
+﻿using Core._02_Repository.Interfaces;
+using Core._03_Entidades.DTO.Usuarios;
 using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 
@@ -6,7 +7,7 @@ namespace TrabalhoFinal._01_Services;
 
 public class UsuarioService
 {
-    public UsuarioRepository repository { get; set; }
+    public IUsuarioRepository repository { get; set; }
     public UsuarioService(string _config)
     {
         repository = new UsuarioRepository(_config);

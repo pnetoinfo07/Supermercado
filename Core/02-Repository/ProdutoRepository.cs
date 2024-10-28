@@ -1,11 +1,12 @@
-﻿using Core.Entidades;
+﻿using Core._02_Repository.Interfaces;
+using Core.Entidades;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
 
-public class ProdutoRepository
+public class ProdutoRepository : IProdutoRepository
 {
     private readonly string ConnectionString;
     public ProdutoRepository(string connectioString)

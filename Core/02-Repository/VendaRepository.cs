@@ -1,4 +1,5 @@
-﻿using Core._03_Entidades;
+﻿using Core._02_Repository.Interfaces;
+using Core._03_Entidades;
 using Core._03_Entidades.DTO.Venda;
 using Core.Entidades;
 using Dapper.Contrib.Extensions;
@@ -6,18 +7,18 @@ using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
 
-public class VendaRepository
+public class VendaRepository : IVendaRepository
 {
     private readonly string ConnectionString;
-    private readonly CarrinhoRepository _repositoryCarrinho;
-    private readonly UsuarioRepository _repositoryUsuario;
-    private readonly EnderecoRepository _repositoryEndereco;
+    private readonly ICarrinhoRepository _repositoryCarrinho;
+    private readonly IUsuarioRepository _repositoryUsuario;
+    private readonly IEnderecoRepository _repositoryEndereco;
     public VendaRepository(string connectioString)
     {
         ConnectionString = connectioString;
-        _repositoryCarrinho = new(connectioString);
-        _repositoryUsuario = new(connectioString);
-        _repositoryEndereco = new(connectioString);
+        _repositoryCarrinho = new CarrinhoRepository(connectioString);
+        _repositoryUsuario = new UsuarioRepository(connectioString);
+        _repositoryEndereco = new EnderecoRepository(connectioString);
     }
     public void Adicionar(Venda venda)
     {

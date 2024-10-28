@@ -1,11 +1,12 @@
-﻿using Core.Entidades;
+﻿using Core._02_Repository.Interfaces;
+using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
 
 public class EnderecoService
 {
-    public EnderecoRepository repository { get; set; }
+    public IEnderecoRepository repository { get; set; }
     public EnderecoService(string _config)
     {
         repository = new EnderecoRepository(_config);

@@ -1,4 +1,5 @@
-﻿using Core._03_Entidades.DTO.Carrinhos;
+﻿using Core._02_Repository.Interfaces;
+using Core._03_Entidades.DTO.Carrinhos;
 using Core.Entidades;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -7,12 +8,12 @@ using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
 
-public class CarrinhoRepository
+public class CarrinhoRepository : ICarrinhoRepository
 {
     private readonly string ConnectionString;
-    private readonly ProdutoRepository _repositoryProduto;
-    private readonly UsuarioRepository _repositoryUsuario;
-    private readonly EnderecoRepository _repositoryEndereco;
+    private readonly IProdutoRepository _repositoryProduto;
+    private readonly IUsuarioRepository _repositoryUsuario;
+    private readonly IEnderecoRepository _repositoryEndereco;
     public CarrinhoRepository(string connectioString)
     {
         ConnectionString = connectioString;
