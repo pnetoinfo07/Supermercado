@@ -8,36 +8,36 @@ namespace TrabalhoFinal._01_Services;
 
 public class CarrinhoService : ICarrinhoService
 {
-    public ICarrinhoRepository repository { get; set; }
-    public CarrinhoService(string _config)
+    private readonly ICarrinhoRepository _repository;
+    public CarrinhoService(ICarrinhoRepository repository)
     {
-        repository = new CarrinhoRepository(_config);
+        _repository = repository;
     }
     public void Adicionar(Carrinho carrinho)
     {
-        repository.Adicionar(carrinho);
+        _repository.Adicionar(carrinho);
     }
 
     public void Remover(int id)
     {
-        repository.Remover(id);
+        _repository.Remover(id);
     }
 
     public List<Carrinho> Listar()
     {
-        return repository.Listar();
+        return _repository.Listar();
     }
 
     public List<ReadCarrinhoDTO> ListarCarrinhoDoUsuario(int usuarioId)
     {
-        return repository.ListarCarrinhoDoUsuario(usuarioId);
+        return _repository.ListarCarrinhoDoUsuario(usuarioId);
     }
     public Carrinho BuscarTimePorId(int id)
     {
-        return repository.BuscarPorId(id);
+        return _repository.BuscarPorId(id);
     }
     public void Editar(Carrinho editPessoa)
     {
-        repository.Editar(editPessoa);
+        _repository.Editar(editPessoa);
     }
 }

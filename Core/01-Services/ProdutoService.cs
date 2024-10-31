@@ -7,31 +7,31 @@ namespace TrabalhoFinal._01_Services;
 
 public class ProdutoService : IProdutoService
 {
-    public IProdutoRepository repository { get; set; }
-    public ProdutoService(string _config)
+    private readonly IProdutoRepository _repository;
+    public ProdutoService(IProdutoRepository repository)
     {
-        repository = new ProdutoRepository(_config);
+        _repository = repository;
     }
     public void Adicionar(Produto produto)
     {
-        repository.Adicionar(produto);
+        _repository.Adicionar(produto);
     }
 
     public void Remover(int id)
     {
-        repository.Remover(id);
+        _repository.Remover(id);
     }
 
     public List<Produto> Listar()
     {
-        return repository.Listar();
+        return _repository.Listar();
     }
     public Produto BuscarTimePorId(int id)
     {
-        return repository.BuscarPorId(id);
+        return _repository.BuscarPorId(id);
     }
     public void Editar(Produto editPessoa)
     {
-        repository.Editar(editPessoa);
+        _repository.Editar(editPessoa);
     }
 }

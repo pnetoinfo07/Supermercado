@@ -12,11 +12,10 @@ public class EnderecoController : ControllerBase
 {
     private readonly IEnderecoService _service;
     private readonly IMapper _mapper;
-    public EnderecoController(IConfiguration config, IMapper mapper)
+    public EnderecoController(IMapper mapper, IEnderecoService service)
     {
-        string _config = config.GetConnectionString("DefaultConnection");
-        _service = new EnderecoService(_config);
         _mapper = mapper;
+        _service = service;
     }
     [HttpPost("adicionar-endereco")]
     public Endereco AdicionarAluno(Endereco enderecoDTO)

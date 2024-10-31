@@ -2,6 +2,7 @@
 using Core.Entidades;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
 using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
@@ -9,9 +10,9 @@ namespace TrabalhoFinal._02_Repository;
 public class ProdutoRepository : IProdutoRepository
 {
     private readonly string ConnectionString;
-    public ProdutoRepository(string connectioString)
+    public ProdutoRepository(IConfiguration config)
     {
-        ConnectionString = connectioString;
+        ConnectionString = config.GetConnectionString("DefaultConnection");
     }
     public void Adicionar(Produto produto)
     {

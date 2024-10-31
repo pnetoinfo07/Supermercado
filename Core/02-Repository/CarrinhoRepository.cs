@@ -3,6 +3,7 @@ using Core._03_Entidades.DTO.Carrinhos;
 using Core.Entidades;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
@@ -14,12 +15,12 @@ public class CarrinhoRepository : ICarrinhoRepository
     private readonly IProdutoRepository _repositoryProduto;
     private readonly IUsuarioRepository _repositoryUsuario;
     private readonly IEnderecoRepository _repositoryEndereco;
-    public CarrinhoRepository(string connectioString)
+    public CarrinhoRepository(IConfiguration config, IProdutoRepository repositoryProduto, IUsuarioRepository repositoryUsuario, IEnderecoRepository repositoryEndereco)
     {
-        ConnectionString = connectioString;
-        _repositoryProduto = new ProdutoRepository(connectioString);
-        _repositoryUsuario = new UsuarioRepository(connectioString);
-        _repositoryEndereco = new EnderecoRepository(connectioString);
+        _repositoryProduto = repositoryProduto;
+        _repositoryUsuario = repositoryUsuario;
+        _repositoryEndereco = repositoryEndereco;
+        ConnectionString = config.GetConnectionString("DefaultConnection");
     }
     public void Adicionar(Carrinho carrinho)
     {

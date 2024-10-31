@@ -8,10 +8,10 @@ namespace TrabalhoFinal._01_Services;
 
 public class VendaService : IVendaService
 {
-    public IVendaRepository repository { get; set; }
-    public VendaService(string _config)
+    private readonly IVendaRepository repository;
+    public VendaService(IVendaRepository vendaREpositorio)
     {
-        repository = new VendaRepository(_config);
+        repository = vendaREpositorio;
     }
     public void Adicionar(Venda venda)
     {

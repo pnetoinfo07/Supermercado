@@ -3,6 +3,7 @@ using Core._03_Entidades;
 using Core._03_Entidades.DTO.Venda;
 using Core.Entidades;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
 using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
@@ -13,13 +14,15 @@ public class VendaRepository : IVendaRepository
     private readonly ICarrinhoRepository _repositoryCarrinho;
     private readonly IUsuarioRepository _repositoryUsuario;
     private readonly IEnderecoRepository _repositoryEndereco;
-    public VendaRepository(string connectioString)
+
+    public VendaRepository(IConfiguration config,ICarrinhoRepository repositoryCarrinho, IUsuarioRepository repositoryUsuario, IEnderecoRepository repositoryEndereco)
     {
-        ConnectionString = connectioString;
-        _repositoryCarrinho = new CarrinhoRepository(connectioString);
-        _repositoryUsuario = new UsuarioRepository(connectioString);
-        _repositoryEndereco = new EnderecoRepository (connectioString);
+        _repositoryCarrinho = repositoryCarrinho;
+        _repositoryUsuario = repositoryUsuario;
+        _repositoryEndereco = repositoryEndereco;
+        ConnectionString = config.GetConnectionString("DefaultConnection");
     }
+
     public void Adicionar(Venda venda)
     {
         using var connection = new SQLiteConnection(ConnectionString);
@@ -28,7 +31,7 @@ public class VendaRepository : IVendaRepository
     public void Remover(int id)
     {
         using var connection = new SQLiteConnection(ConnectionString);
-        Venda venda = new Venda();//BuscarPorId(id);
+        Venda venda = new Venda();
         connection.Delete<Venda>(venda);
     }
     public void Editar(Venda venda)

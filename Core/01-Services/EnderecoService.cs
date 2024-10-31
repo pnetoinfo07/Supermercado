@@ -7,35 +7,35 @@ namespace TrabalhoFinal._01_Services;
 
 public class EnderecoService : IEnderecoService
 {
-    public IEnderecoRepository repository { get; set; }
-    public EnderecoService(string _config)
+    private readonly IEnderecoRepository _repository;
+    public EnderecoService(IEnderecoRepository repository)
     {
-        repository = new EnderecoRepository(_config);
+        _repository = repository;
     }
     public void Adicionar(Endereco endereco)
     {
-        repository.Adicionar(endereco);
+        _repository.Adicionar(endereco);
     }
 
     public void Remover(int id)
     {
-        repository.Remover(id);
+        _repository.Remover(id);
     }
 
     public List<Endereco> Listar()
     {
-        return repository.Listar();
+        return _repository.Listar();
     }
     public List<Endereco> ListarEnderecoAluno(int usuarioId)
     {
-        return repository.ListarEnderecoAluno(usuarioId);
+        return _repository.ListarEnderecoAluno(usuarioId);
     }
     public Endereco BuscarTimePorId(int id)
     {
-        return repository.BuscarPorId(id);
+        return _repository.BuscarPorId(id);
     }
     public void Editar(Endereco editPessoa)
     {
-        repository.Editar(editPessoa);
+        _repository.Editar(editPessoa);
     }
 }

@@ -13,10 +13,9 @@ public class VendaController : ControllerBase
 {
     private readonly IVendaService _service;
     private readonly IMapper _mapper;
-    public VendaController(IConfiguration config, IMapper mapper)
+    public VendaController(IMapper mapper, IVendaService vendaService)
     {
-        string _config = config.GetConnectionString("DefaultConnection");
-        _service = new VendaService(_config);
+        _service = vendaService;
         _mapper = mapper;
     }
     [HttpPost("adicionar-venda")]
